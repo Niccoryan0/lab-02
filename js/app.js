@@ -15,8 +15,10 @@ function Image(url, title, desc, keyword, horns){
 Image.prototype.renderImage = function() {
   // Get the template
   const $imageTemplateClone = $('#photo-template').clone();
+  $imageTemplateClone.attr('id', null);
 
-  // Set the correct elements
+  $imageTemplateClone.attr('class', this.keyword);
+
   $imageTemplateClone.find('h2').text(this.title);
   $imageTemplateClone.find('img').attr('src', this.url);
   $imageTemplateClone.find('p').text(this.desc);
@@ -26,38 +28,32 @@ Image.prototype.renderImage = function() {
 };
 
 $.get('data/page-1.json', function(item) {
+
   item.forEach(thing => {
     const newImage = new Image(thing.image_url, thing.title, thing.description, thing.keyword, thing.horns);
     newImage.renderImage();
 
     if(!keywords.includes(thing.keyword)){
-      console.log(thing.keyword);
       keywords.push(thing.keyword);
     }
   });
+
   keywords.forEach((currValue) => {
     const $optionDropDown = $('option:first-child').clone();
-    $optionDropDown.text(currValue);
+    $optionDropDown.text(currValue[0].toUpperCase() + currValue.slice(1));
     $optionDropDown.attr('value', currValue);
     $('select').append($optionDropDown);
   });
 });
 
-// We got keywords displaying, lets make them filter.
+
 // Click handler for select that checks through all things in json, and displays only ones with the keyword selected.
-console.log(images);
-$('select').on('click', function(event){
-  event.preventDefault();
-  $('main').empty();
-  console.log(this.value); // Good to go
-  images.forEach((currentImage) => {
-    if(currentImage.keyword === this.value){
-      currentImage.renderImage();
-    }
-  });
-  if(this.value === 'default'){
-    images.forEach((currentImage) => {
-      currentImage.renderImage();
-    });
-  }
+$('select').on('click', function(){
+  const selectedKeyword = $(this).val();
+
+  $('section').hide();
+
+  $(`.${selectedKeyword}`).show();
+
+  if (selectedKeyword === 'default') $('section').show();
 });
