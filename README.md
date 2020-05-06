@@ -32,6 +32,17 @@ Estimate of time needed to complete: 30 min
 
 Start time: 2:45 pm
 
-Finish time: ____ pm
+Finish time: 3:00 pm
 
-Actual time needed to complete: ___ min
+Actual time needed to complete: 15 min
+
+### Feature 4
+Number and name of feature: Feature #3 Display Images
+
+Estimate of time needed to complete: 60 min
+
+Start time:  3:05 pm
+
+Finish time: ___ pm
+
+Actual time needed to complete: _____ min
