@@ -1,6 +1,6 @@
 'use strict';
 /* global Handlebars, $ */
-const images = [];
+let images = [];
 let keywords = [];
 let currentPage = 1;
 
@@ -31,9 +31,11 @@ const sortByTitle = (arr) => {
       return 0;
     }
   });
+  return arr;
 };
 
 const sortByHorns = (arr) => {
+  console.log('Check this', arr);
   arr.sort((left, right) => {
     if(left.horns > right.horns){
       return 1;
@@ -43,6 +45,8 @@ const sortByHorns = (arr) => {
       return 0;
     }
   });
+  return arr;
+
 };
 
 const getJson = (page = 1) => {
@@ -79,6 +83,7 @@ const handlePage = (e) => {
   } else { // if adding more than one page, change  to switch.
     currentPage = 1;
   }
+  images = [];
   getJson(currentPage);
 };
 
@@ -101,10 +106,11 @@ const handleSorting = () => {
   $('main').empty();
   if($('#sort').val() === 'horns'){
     sortByHorns(images);
-    images.forEach((val) => val.renderImage);
+    console.log('Sorting', images);
+    return images.forEach((val) => val.renderImage());
   } else if($('#sort').val() === 'title'){
     sortByTitle(images);
-    images.forEach((val) => val.renderImage);
+    return images.forEach((val) => val.renderImage());
   }
 };
 
