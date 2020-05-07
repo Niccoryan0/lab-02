@@ -8,8 +8,9 @@ h1 {
   margin-bottom: 20px;
 }
 
-button {
+div {
   margin: 15px auto;
+  width:fit-content;
 }
 
 main {

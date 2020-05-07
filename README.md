@@ -69,15 +69,15 @@ Finish time: 4:59 pm
 
 Actual time needed to complete: 6 min
 
-### Feature 6
-Number and name of feature: Feature #6 Styling W/Flexbox
+### Feature 5
+Number and name of feature: Feature #6 Sort the Images
 
-Estimate of time needed to complete: 5 min
+Estimate of time needed to complete: 45 min
 
-Start time:  4:53 pm
+Start time:  5:05 pm
 
-Finish time: 4:59 pm
+Finish time:  pm
 
-Actual time needed to complete: 6 min
+Actual time needed to complete:  min
 
 

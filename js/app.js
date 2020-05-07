@@ -5,7 +5,7 @@ let keywords = [];
 let currentPage = 1;
 
 
-function Image(url, title, description, keyword, horns, page){
+function HornImage(url, title, description, keyword, horns, page){
   this.url = url;
   this.title = title;
   this.description = description;
@@ -13,74 +13,99 @@ function Image(url, title, description, keyword, horns, page){
   this.horns = horns;
   this.page = page;
   images.push(this);
-  
 }
 
-Image.prototype.renderImage = function() {
+HornImage.prototype.renderImage = function() {
   const imageTemplate = Handlebars.compile($('#imageTemplate').html());
   const result = imageTemplate(this);
   $('main').append(result);
 };
 
+const sortByTitle = (arr) => {
+  arr.sort((left, right) => {
+    if(left.title > right.title){
+      return 1;
+    }else if(left.title < right.title){
+      return -1;
+    }else{
+      return 0;
+    }
+  });
+};
+
+const sortByHorns = (arr) => {
+  arr.sort((left, right) => {
+    if(left.horns > right.horns){
+      return 1;
+    }else if(left.horns < right.horns){
+      return -1;
+    }else{
+      return 0;
+    }
+  });
+};
+
 const getJson = (page = 1) => {
   $('main').empty();
-  $('select :nth-child(n + 2)').remove();
+  $('#filter :nth-child(n + 2)').remove();
   keywords = [];
   $.get(`data/page-${page}.json`, function(item) {
+    sortByTitle(item);
     item.forEach(thing => {
-      const newImage = new Image(thing.image_url, thing.title, thing.description, thing.keyword, thing.horns, page);
+
+      const newImage = new HornImage(thing.image_url, thing.title, thing.description, thing.keyword, thing.horns, page);
       newImage.renderImage();
-  
+
       if(!keywords.includes(thing.keyword)){
         console.log(thing.keyword);
         keywords.push(thing.keyword);
       }
     });
+    keywords.sort();
     keywords.forEach((currValue) => {
-      const $optionDropDown = $('option:first-child').clone();
+      const $optionDropDown = $('#default').clone();
       $optionDropDown.text(currValue);
       $optionDropDown.attr('value', currValue);
-      $('select').append($optionDropDown);
+      $('#filter').append($optionDropDown);
     });
   });
-}
+};
 getJson();
 
 const handlePage = (e) => {
   e.preventDefault();
   if(currentPage === 1){
     currentPage = 2;
-  } else { // if adding more than one page, change  to switch. 
+  } else { // if adding more than one page, change  to switch.
     currentPage = 1;
   }
   getJson(currentPage);
-}
+};
 
 $('button').on('click', handlePage);
 
 // We got keywords displaying, lets make them filter.
 // Click handler for select that checks through all things in json, and displays only ones with the keyword selected.
 console.log(images);
-$('select').on('change', function(event){
+$('#filter').on('change', function(){
   const chosenKeyword = $(this).val();
   $('section').hide();
   $(`.${chosenKeyword}`).show();
 
-
-
-  // event.preventDefault();
-  // $('main').empty();
-  // console.log(this.value); // Good to go
-  // images.forEach((currentImage) => {
-  //   if(currentImage.keyword === this.value){
-  //     currentImage.renderImage();
-  //   }
-  // });
-  // if(this.value === 'default'){
-  //   images.forEach((currentImage) => {
-  //     currentImage.renderImage();
-  //   });
-  // }
+  if($(this).val() === 'default'){
+    $('section').show();
+  }
 });
 
+const handleSorting = () => {
+  $('main').empty();
+  if($('#sort').val() === 'horns'){
+    sortByHorns(images);
+    images.forEach((val) => val.renderImage);
+  } else if($('#sort').val() === 'title'){
+    sortByTitle(images);
+    images.forEach((val) => val.renderImage);
+  }
+};
 
+$('#sort').on('change', handleSorting);
