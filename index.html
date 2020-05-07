@@ -27,9 +27,16 @@
 
       <h1>The Gallery of Horns</h1>
 
-      <select>
+      <select id='filter'>
 
-        <option value="default">Filter by Keyword</option>
+        <option value="default" id='default'>Filter by Keyword</option>
+
+      </select>
+
+      <select id='sort'>
+
+        <option value="title">Sort By Title</option>
+        <option value="horns">Sort By Horns</option>
 
       </select>
 
@@ -38,7 +45,7 @@
     
     <div>
 
-      <button value="1" id="pageButton">Page 1</button>
+      <button id="pageButton">Change Page</button>
 
     </div>
 
