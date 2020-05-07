@@ -92,6 +92,7 @@ $('button').on('click', handlePage);
 // We got keywords displaying, lets make them filter.
 // Click handler for select that checks through all things in json, and displays only ones with the keyword selected.
 console.log(images);
+
 $('#filter').on('change', function(){
   const chosenKeyword = $(this).val();
   $('section').hide();
