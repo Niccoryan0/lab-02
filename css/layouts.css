@@ -8,16 +8,19 @@ h1 {
   margin-bottom: 20px;
 }
 
-
+button {
+  margin: 15px auto;
+}
 
 main {
   width: 900px;
   margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
 
 }
 
 main > section {
-  float: left;
   width: 33.33%;
   height: 450px;
   padding: 5px 40px;
