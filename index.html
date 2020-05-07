@@ -2,31 +2,48 @@
 <html>
   <head>
     <title>The Gallery of Horns</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/layouts.css">
     <link rel="stylesheet" href="css/modules.css">
+
+    <script id="imageTemplate" type="text/x-handlebars-template">
+      <section id="photo-template" class="{{page}} {{keyword}}">
+      <h2>{{title}}</h2>
+      <img src="{{url}}" alt="">
+      <p> {{description}} </p>
+    </section>
+    </script>
+    
   </head>
   <body>
 
+
     <header>
+
       <h1>The Gallery of Horns</h1>
+
       <select>
+
         <option value="default">Filter by Keyword</option>
+
       </select>
+
     </header>
 
-    <section id="photo-template">
-      <h2></h2>
-      <img src="" alt="">
-      <p></p>
-    </section>
+    
+    <div>
 
-    <button value="1" id="pageButton">Page 1</button>
-   
+      <button value="1" id="pageButton">Page 1</button>
+
+    </div>
+
     <main>
+      
     </main>
 
     <footer>

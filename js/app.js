@@ -5,10 +5,10 @@ let keywords = [];
 let currentPage = 1;
 
 
-function Image(url, title, desc, keyword, horns, page){
+function Image(url, title, description, keyword, horns, page){
   this.url = url;
   this.title = title;
-  this.desc = desc;
+  this.description = description;
   this.keyword = keyword;
   this.horns = horns;
   this.page = page;
@@ -17,17 +17,9 @@ function Image(url, title, desc, keyword, horns, page){
 }
 
 Image.prototype.renderImage = function() {
-  // Get the template
-  const $imageTemplateClone = $('#photo-template').clone();
-
-  // Set the correct elements
-  $imageTemplateClone.find('h2').text(this.title);
-  $imageTemplateClone.find('img').attr('src', this.url);
-  $imageTemplateClone.find('p').text(this.desc);
-  $imageTemplateClone.attr('class', this.keyword);
-  $imageTemplateClone.attr('id', null);
-  // Append that ish
-  $('main').append($imageTemplateClone);
+  const imageTemplate = Handlebars.compile($('#imageTemplate').html());
+  const result = imageTemplate(this);
+  $('main').append(result);
 };
 
 const getJson = (page = 1) => {
